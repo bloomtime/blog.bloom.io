@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>Bloom Blog &#187; post-mortem</title>
+	<atom:link href="http://blog.bloom.io/tag/post-mortem/feed/" rel="self" type="application/rss+xml" />
+	<link>http://blog.bloom.io</link>
+	<description>Pop-cultural instruments for data expression and exploration.</description>
+	<lastBuildDate>Wed, 07 Nov 2012 15:23:32 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+<cloud domain='blog.bloom.io' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<image>
+		<url>http://s2.wp.com/i/buttonw-com.png</url>
+		<title>Bloom Blog &#187; post-mortem</title>
+		<link>http://blog.bloom.io</link>
+	</image>
+	<atom:link rel="search" type="application/opensearchdescription+xml" href="http://blog.bloom.io/osd.xml" title="Bloom Blog" />
+	<atom:link rel='hub' href='http://blog.bloom.io/?pushpress=hub'/>
+		<item>
+		<title>Creating new worlds</title>
+		<link>http://blog.bloom.io/2011/07/11/creating-new-worlds/</link>
+		<comments>http://blog.bloom.io/2011/07/11/creating-new-worlds/#comments</comments>
+		<pubDate>Mon, 11 Jul 2011 22:07:30 +0000</pubDate>
+		<dc:creator>flight404</dc:creator>
+				<category><![CDATA[Planetary]]></category>
+		<category><![CDATA[ipad]]></category>
+		<category><![CDATA[planetary]]></category>
+		<category><![CDATA[post-mortem]]></category>
+		<category><![CDATA[process]]></category>
+
+		<guid isPermaLink="false">http://blog.bloom.io/?p=177</guid>
+		<description><![CDATA[During the last couple years, I have become addicted to science shows: particularly shows about astronomy. Everything about the subject fascinates me. Shortly after I joined Bloom, we started working on a new way to visualize and explore your iPad music collection. While coming up with concepts to explore, I stumbled upon the following image. [...]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=blog.bloom.io&#038;blog=18914580&#038;post=177&#038;subd=bloomio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+				<content:encoded><![CDATA[<p>During the last couple years, I have become addicted to science shows: particularly shows about astronomy. Everything about the subject fascinates me. Shortly after I joined Bloom, we started working on a new way to visualize and explore your iPad music collection. While coming up with concepts to explore, I stumbled upon the following image.</p>
+<p><a href="http://www.flickr.com/photos/planetaryrings/"><img src="http://farm6.static.flickr.com/5044/5273267039_359f048d1e_z.jpg" alt="" width="580" /></a></p>
+<p>This photo, taken by the Cassini probe, was the original inspiration for the Planetary app. We decided to model the iPad music library after a model of a solar system. Several solar systems in fact. Each star in our universe will be an artist in your music library. Each of these stars will be orbited by planets representing albums. Each planet will have a moon system with each moon representing a track.</p>
+<p><a href="http://www.flickr.com/photos/63241925@N04/sets/72157626689258131/"><img class="alignnone" title="Planetary Comp" src="http://farm4.static.flickr.com/3331/5774236619_b4102a76e5_b.jpg" alt="" width="580" height="290" /></a></p>
+<p>After establishing this initial premise, many more details fell into place. All of the artists in your collection would be a galaxy. Groupings of stars, either by filter or by playlist, would be constellations. The look of the planets would be derived from genre information mixed with album art. The speed of the orbit would be related to track length. So many options!</p>
+<h2><strong>Getting Started</strong></h2>
+<p>The first hurdle was to get some content onto the iPad. Happily, Ryan Alexander had already been working on an iPad music library. We ended up using Cinder for the job partially because it is the platform that I have been working with for a couple years but also because Cinder plays quite well with the iPad.</p>
+<p>I needed to get up to speed with doing recursive node structures so I coded up a project that would put a dot on the screen. When you tapped this dot, it would create a bunch of orbiting child-dots. These children could also be tapped, creating even more child nodes. This prototype took less than a day to create and I naively thought we would be done with the whole thing in a week, max. Silly me.</p>
+<h2><a href="http://www.flickr.com/photos/63241925@N04/sets/72157626689258131/"><img class="alignnone" title="Force-Directed nodes" src="http://farm6.static.flickr.com/5030/5774775138_1d6b598525_b.jpg" alt="" width="580" height="290" /></a></h2>
+<h2>Two Dimensions is plenty of dimensions</h2>
+<p>A couple days later, we implemented the iPad music library code and had our first working music library visualization. It was top-down, two dimensional, the lighting was baked into the texture, it used placeholder 2D planet graphics, and the text layout was far from elegant. But it worked. And even in this initial stage, it started to show its potential.</p>
+<h2><a href="http://www.flickr.com/photos/63241925@N04/sets/72157626689258131/"><img class="alignnone" title="Planetary 1st Draft" src="http://farm3.static.flickr.com/2759/5774863602_0529cf22b9_b.jpg" alt="" width="580" height="290" /></a></h2>
+<p>Someone raised the point that they thought it could be 3D. I got nervous. I had already quietly considered this option, then abandoned it. In my experience, going from 2D to 3D makes the experience approximately 15000% harder. There are so many new things to have to worry about. You have to make things look good at many different scales. You have to create a robust camera model for moving through the space. You have to implement a 3D picker. But for me, the bit that was going to be the hardest was coming up with a solution for rendering the planets and moons.</p>
+<p>With a top-down 2D simulation, you can load in a ton of pre-made 2D graphics and you never have to worry about what might happen if the user viewed the planet from a different angle. With the 2D version, you can easily use flat circular graphics to represent the planets. With 3D, you would have to shift to drawing spheres. You could use billboarded 2D graphics (these are images that always align their face towards the camera so you never see the 2D graphic edge-on) but you would then lose a lot of the control of the lighting. And since we were going to show bright stars against a dark background, the lighting model would have to be highly tuned to keep from looking flat or dated. Plus, there is a ton of music out there. If we wanted to represent every single album ever made with a unique graphic, we could not rely solely on pre-made planet images.</p>
+<h2>The Era of Additive Blending</h2>
+<p>A quick and lazy solution to many of the problems associated with the switch from 2D to 3D is to simply make everything glow. I made the planets and moons glow as brightly as the stars. In fact, it would be pointless to even refer to them as planets and moons anymore. I enabled additive blending and everything became a star.</p>
+<p>With additive blending, you can use flat images of glowing circles instead of spheres. You can render the content in whatever order you want. Best of all, the idea of a &#8216;planet surface&#8217; goes completely away and you save yourself weeks of work. Everything is all aglow and mission accomplished.</p>
+<p><a href="http://www.flickr.com/photos/63241925@N04/sets/72157626689258131/"><img class="alignnone" title="Planetary 2nd Draft" src="http://farm3.static.flickr.com/2748/5774775246_45f4d379b6_b.jpg" alt="" width="580" height="290" /></a></p>
+<p>Enter friend and original beta-tester, Tom Coates.</p>
+<p>Tom : &#8220;You can&#8217;t have stars orbiting other stars. That just doesn&#8217;t happen.&#8221;</p>
+<p>Me : &#8220;But some star systems have multiple stars. They orbit each other.&#8221;</p>
+<p>Tom: &#8220;Yes, but those are multi-star systems. They aren&#8217;t stars orbiting other stars orbiting still other stars. This is stupid. You guys are stupid.&#8221;</p>
+<p>My inaccurate re-imagining of Tom Coates had a point.</p>
+<p><span class="Apple-style-span" style="font-size:20px;font-weight:bold;">Return of the spheres</span></p>
+<p>There were many unknowns but the one that made me the most worried was whether or not the iPad could handle drawing so many spheres. We quickly swapped in a drawSphere() where it was previously drawing a 2D graphic for each track and planet.</p>
+<p>Happily, the iPad handled it like a pro. Even with albums featuring 30 or more tracks, the frame rate stayed at a happy 60. More importantly, it started to look fantastic.</p>
+<h2><a href="http://www.flickr.com/photos/63241925@N04/sets/72157626689258131/"><img class="alignnone" title="Planetary 3rd Draft" src="http://farm3.static.flickr.com/2467/5774775302_8299ca9b61_b.jpg" alt="" width="580" height="290" /></a></h2>
+<p>It was time to start thinking more about the look of the planets and moons. The stars were easy. At this point, they were still just 2D graphics. Still no reason to render the stars with spheres because it was going to be overkill. A star in space is going to look like a glowing circle, no matter what angle you view it. But the planets did not glow. They needed to reflect light from the star. They needed to have a dark side. They needed to have a rich surface texture. It would be great if they could have clouds. And they might each have many orbiting moons which all needed to have the same attention to detail.</p>
+<p>And speaking of detail, we also needed to figure out a good system for controlling the level of detail based on distance from the camera. The planet that is really far away and has a screen radius of a couple pixels does not require a high resolution sphere. It would be waste of computing power. Additionally, any planets with cloud layers would require us to draw two spheres, one for the planet surface and a slightly larger one for the cloud layer. But again, with planets that are really far away, the cloud layer didn&#8217;t need to be rendered at all because you just wouldn&#8217;t see it.</p>
+<p>In order to speed things up, we created 4 different vertex arrays representing 4 different resolutions of sphere. This helped a great deal and even with many high resolution nearby planets, the frame rate kept humming along. We did run into some errors along the way. In my first attempt at coding a vertex array sphere from scratch, I messed something up and these fantastic abstract forms filled the sky.</p>
+<p><a href="http://www.flickr.com/photos/63241925@N04/sets/72157626689258131/"><img class="alignnone" title="Planetary 4th Draft" src="http://farm4.static.flickr.com/3112/5774236845_d5ea344b81_b.jpg" alt="" width="580" height="290" /></a></p>
+<h2>Surfacing the planets</h2>
+<p>Now that we had our spheres, what to put on them? We considered just slapping on the album art but we knew that would just look odd. And what would we do for albums that have no album art? It was time to do a bit of pixel by pixel manipulation.</p>
+<p>The creation of the planet surface is a 4 step process.</p>
+<p><img class="alignnone" src="http://farm3.static.flickr.com/2387/5795186401_ee567c17be_z.jpg" alt="" width="603" height="604" /></p>
+<p>1) Grab a rectangular block of pixels from around the center of the album art. The size and position of the block you grab would be based on the number of tracks that album has combined with a integer representation of the album name. This way, the planet representing Stateless&#8217;s album &#8216;Matilda&#8217; should look the same on my iPad as it does on yours. If the album art is missing, we skip right to step 3.</p>
+<p>2) Make it a mirror image by doubling the image but horizontally reversing one side. This is a quick and easy way to deal with the seam line that what would appear if you just used the non-mirrored version. The seams are still there but their impact is minimized by the mirroring.</p>
+<p>3) To make the planet surface a bit more rugged and rough, we add in some additional texture directly on the image. This additional texture is derived from images provided by NASA. We use combinations of photos taken of the surface of Mercury, Venus, Earth, Mars and the cloud patterns from Jupiter. These extra details are burned into our album art graphic.</p>
+<p>4) Finally, we add a cloud layer. As we haven&#8217;t found a fast enough way to do dynamic clouds (maybe on the iPad 3 or 4?) we ended up using prepared graphics of the earth&#8217;s cloud layer, some modified images from NASA&#8217;s Blue Marble venture, and some zoomed and cropped textures from our own Flickr images. This cloud layer is actually rendered as a separate slightly larger sphere so it can rotate independent of the planet.</p>
+<p>The moons are done similarly. The moon textures are even smaller crops from different parts of the original album art. So with the above example for the Matilda album, you might end up with moons that are solid red orbiting next to a moon that is purple with a blue stripe.</p>
+<div class="wp-caption alignnone" style="width: 590px"><img src="http://farm3.static.flickr.com/2430/5795294311_44759c4512.jpg" alt="" width="580" height="310" /><p class="wp-caption-text">Worlds without atmosphere</p></div>
+<p>After implementing this 4 step process, the planets still felt like they were missing something. They felt really small. Like marbles. And they also felt very lifeless. They had a barren quality. These planets needed an implication of complexity which would hint at the possibility of life. These planets needed atmosphere.</p>
+<div class="wp-caption alignnone" style="width: 590px"><img src="http://farm6.static.flickr.com/5152/5795853520_a92d6961c3.jpg" alt="" width="580" height="310" /><p class="wp-caption-text">Worlds with atmosphere</p></div>
+<p>This was a little tricky. It isn&#8217;t as easy as rendering a slightly larger semi-transparent sphere around the planet. You would still end up with a hard edge instead of a fuzzy glow. The solution we chose uses a billboarded graphic of a fuzzy glowing ring and it is drawn at the same position and screen size as the planet. Not only does this give the appearance of an atmosphere, but it helps to mask the aliased edges of the sphere (anti-aliasing is not currently supported on the iPad). With this process, we were able to create a really lush variety of different looks for the planets and moons.</p>
+<p>In order to keep the atmosphere graphic aligned with the silhouette of the planet sphere, we had to use <a href="http://www.lighthouse3d.com/opengl/billboarding/index.php?billSphe">spherical billboarding</a>. With regular billboarding (as seen in the 1.0 release), as the planet moved to the edge of the screen it would begin to warp. The FOV of your camera model dictates just how much warping occurs. And once the sphere is warped, the billboard atmosphere stops aligning with the sphere itself and the illusion is broken. With the soon-to-be-updated version of Planetary, spherical billboarding corrects this misalignment by also warping the billboard texture.</p>
+<p><a href="http://www.flickr.com/photos/63241925@N04/sets/72157626689258131/"><img class="alignnone" title="Planetary Teaser" src="http://farm3.static.flickr.com/2358/5774775364_9f387b5835_b.jpg" alt="" width="580" height="290" /></a></p>
+<h2>Physical Characteristics</h2>
+<p>The iPad allows you to access most of the metadata that is available in the iPod app which gets its data when you sync to iTunes on the desktop. We use the playcount to control the size of the moon. The higher the playcount, the larger the radius of the moon. The track that is played the most on an album will have a cloud layer and a denser atmosphere. Additionally, the time it takes for a moon to make one full revolution is equal to the duration of the track.</p>
+<p>The planets are similarly affected by the iPod library data. The distance at which a planet orbits around its star is related to the release date of the album and the size of the planet is based on the number of tracks on the album.</p>
+<p><span class="Apple-style-span" style="font-size:20px;font-weight:bold;">Special Effects!</span></p>
+<p>There has been some serious code optimization since Planetary was released. The nice thing about optimizing code is it frees up some CPU load to add more visual effects. An effect I was anxious to try coding was a realistic eclipse effect. I have never seen an eclipse in real life, but rest assured I will be ready when a <a href="http://www.eclipse2017.org/ECLIPSE2017_main.HTM">total solar eclipse sweeps across the US from Oregon to Georgia in 2017</a>. I researched the effect by watching different videos of an eclipse taking place.</p>
+<p>I knew there needed to be a coronal flare. I knew the foreground planet should be in total darkness with a bloom of light around the edge. These were fairly easy to code up once you figure out the math for doing circle/circle area of intersect. The part I hadn&#8217;t anticipated being difficult was simulating a nice (faked) HDR light effect. This is a common effect in modern immersive first-person shooters. As you look at the sun or other super bright objects, the rest of the view needs to dim and adjust contrast to simulate what it would be like to look at something much much brighter than anything a computer monitor could represent.</p>
+<p>This ended up taking a lot of trial and error. In the end, most of the effect is controlled by adjusting the size of the graphic representing the star&#8217;s outer glow. As an eclipse begins, this glow slowly increases. When the eclipse reaches near totality, the outer glow drops abruptly as does the amount of light falling on the eclipsing planet. Together with a some extra dust and smoke textures, a nice eclipse effect is achieved.</p>
+<p>And as Tom continued to squeeze more FPS out of the app, I continued to refine this effect by adding shadows cast onto the accretion disk. I didn&#8217;t want to do actual cast shadows because it would be too heavy an implementation for the minimal effect I was looking for. So instead, I researched circle/circle tangents to figure out how to draw the eclipse if it were two circles instead of two spheres. Keeping in the world of 2D made the math pretty trivial. I then just draw a few textured triangles with very low opacity and you get nice but very subtle shadows, complete with distinct umbra and penumbra sections (as shown below in outlines).</p>
+<p><a href="http://www.flickr.com/photos/63241925@N04/5921216598"><img class="alignnone" title="Planetary Teaser" src="http://farm7.static.flickr.com/6025/5921216598_13f70978d0_z.jpg" alt="" width="580" height="405" /></a></p>
+<p>Here is the final effect. It is very subtle but definitely adds to the realism of the simulation.<br />
+<a href="http://www.flickr.com/photos/63241925@N04/5921216626"><img class="alignnone" title="Planetary Teaser" src="http://farm7.static.flickr.com/6145/5921264374_da57323c83_z.jpg" alt="" width="580" height="435" /></a></p>
+<h2>The Future</h2>
+<p>We are working hard to put out an update to Planetary which will include a few of the most requested features as well as a revamping of the graphics. We are definitely excited about eventually switching to OpenGL ES 2.0 so that we can use GLSL shaders to handle many of the effects but with much more zeal and gumption. Stay tuned for more information about the release date and feature list.</p>
+<p>In the meantime version 1.0 of <a href="http://planetary.bloom.io">Planetary</a> for iPad is still available as a <a href="http://itunes.apple.com/app/planetary/id432462305">free download from the App Store</a>.</p>
+<p><a href="http://www.flickr.com/photos/63241925@N04/sets/72157626689258131/"><img class="alignnone" title="Planetary Teaser" src="http://farm4.static.flickr.com/3473/5763055153_d3696c7e09_b.jpg" alt="" width="580" height="773" /></a></p>
+<br />  <a rel="nofollow" href="http://feeds.wordpress.com/1.0/gocomments/bloomio.wordpress.com/177/"><img alt="" border="0" src="http://feeds.wordpress.com/1.0/comments/bloomio.wordpress.com/177/" /></a> <img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=blog.bloom.io&#038;blog=18914580&#038;post=177&#038;subd=bloomio&#038;ref=&#038;feed=1" width="1" height="1" />]]></content:encoded>
+			<wfw:commentRss>http://blog.bloom.io/2011/07/11/creating-new-worlds/feed/</wfw:commentRss>
+		<slash:comments>12</slash:comments>
+	
+		<media:content url="http://0.gravatar.com/avatar/90c65f9eadb6ec82fdcc5ae8a421fd5b?s=96&#38;d=retro&#38;r=G" medium="image">
+			<media:title type="html">flight404</media:title>
+		</media:content>
+
+		<media:content url="http://farm6.static.flickr.com/5044/5273267039_359f048d1e_z.jpg" medium="image" />
+
+		<media:content url="http://farm4.static.flickr.com/3331/5774236619_b4102a76e5_b.jpg" medium="image">
+			<media:title type="html">Planetary Comp</media:title>
+		</media:content>
+
+		<media:content url="http://farm6.static.flickr.com/5030/5774775138_1d6b598525_b.jpg" medium="image">
+			<media:title type="html">Force-Directed nodes</media:title>
+		</media:content>
+
+		<media:content url="http://farm3.static.flickr.com/2759/5774863602_0529cf22b9_b.jpg" medium="image">
+			<media:title type="html">Planetary 1st Draft</media:title>
+		</media:content>
+
+		<media:content url="http://farm3.static.flickr.com/2748/5774775246_45f4d379b6_b.jpg" medium="image">
+			<media:title type="html">Planetary 2nd Draft</media:title>
+		</media:content>
+
+		<media:content url="http://farm3.static.flickr.com/2467/5774775302_8299ca9b61_b.jpg" medium="image">
+			<media:title type="html">Planetary 3rd Draft</media:title>
+		</media:content>
+
+		<media:content url="http://farm4.static.flickr.com/3112/5774236845_d5ea344b81_b.jpg" medium="image">
+			<media:title type="html">Planetary 4th Draft</media:title>
+		</media:content>
+
+		<media:content url="http://farm3.static.flickr.com/2387/5795186401_ee567c17be_z.jpg" medium="image" />
+
+		<media:content url="http://farm3.static.flickr.com/2430/5795294311_44759c4512.jpg" medium="image" />
+
+		<media:content url="http://farm6.static.flickr.com/5152/5795853520_a92d6961c3.jpg" medium="image" />
+
+		<media:content url="http://farm3.static.flickr.com/2358/5774775364_9f387b5835_b.jpg" medium="image">
+			<media:title type="html">Planetary Teaser</media:title>
+		</media:content>
+
+		<media:content url="http://farm7.static.flickr.com/6025/5921216598_13f70978d0_z.jpg" medium="image">
+			<media:title type="html">Planetary Teaser</media:title>
+		</media:content>
+
+		<media:content url="http://farm7.static.flickr.com/6145/5921264374_da57323c83_z.jpg" medium="image">
+			<media:title type="html">Planetary Teaser</media:title>
+		</media:content>
+
+		<media:content url="http://farm4.static.flickr.com/3473/5763055153_d3696c7e09_b.jpg" medium="image">
+			<media:title type="html">Planetary Teaser</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>Bloom Blog &#187; signing</title>
+	<atom:link href="http://blog.bloom.io/tag/signing/feed/" rel="self" type="application/rss+xml" />
+	<link>http://blog.bloom.io</link>
+	<description>Pop-cultural instruments for data expression and exploration.</description>
+	<lastBuildDate>Wed, 07 Nov 2012 15:23:32 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+<cloud domain='blog.bloom.io' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<image>
+		<url>http://s2.wp.com/i/buttonw-com.png</url>
+		<title>Bloom Blog &#187; signing</title>
+		<link>http://blog.bloom.io</link>
+	</image>
+	<atom:link rel="search" type="application/opensearchdescription+xml" href="http://blog.bloom.io/osd.xml" title="Bloom Blog" />
+	<atom:link rel='hub' href='http://blog.bloom.io/?pushpress=hub'/>
+		<item>
+		<title>SSL and HTTPS are Table Stakes</title>
+		<link>http://blog.bloom.io/2011/09/16/https-ssl-table-stakes/</link>
+		<comments>http://blog.bloom.io/2011/09/16/https-ssl-table-stakes/#comments</comments>
+		<pubDate>Fri, 16 Sep 2011 17:32:20 +0000</pubDate>
+		<dc:creator>Tom Carden</dc:creator>
+				<category><![CDATA[CTO-Hat]]></category>
+		<category><![CDATA[apis]]></category>
+		<category><![CDATA[back-end]]></category>
+		<category><![CDATA[certificates]]></category>
+		<category><![CDATA[cto-hat]]></category>
+		<category><![CDATA[heroku]]></category>
+		<category><![CDATA[hosting]]></category>
+		<category><![CDATA[https]]></category>
+		<category><![CDATA[nginx]]></category>
+		<category><![CDATA[openssl]]></category>
+		<category><![CDATA[rapidssl]]></category>
+		<category><![CDATA[security]]></category>
+		<category><![CDATA[signing]]></category>
+		<category><![CDATA[ssl]]></category>
+
+		<guid isPermaLink="false">http://blog.bloom.io/?p=248</guid>
+		<description><![CDATA[We&#8217;re working on a new back-end to support our visualizations of personal data from services like Twitter, Facebook and LinkedIn. These services now routinely offer https, the secure form of http, as an option to protect users from eavesdropping on open networks. It took a high profile release of a simple tool, FireSheep, to give [...]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=blog.bloom.io&#038;blog=18914580&#038;post=248&#038;subd=bloomio&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+				<content:encoded><![CDATA[<p>We&#8217;re working on a new back-end to support our visualizations of personal data from services like Twitter, Facebook and LinkedIn. These services now routinely offer <a href="http://en.wikipedia.org/wiki/HTTP_Secure">https</a>, the secure form of http, as an option to protect users from eavesdropping on open networks. It took a high profile release of a simple tool, <a href="http://codebutler.com/firesheep">FireSheep</a>, to give users the awareness to activate this by default, and many users still aren&#8217;t aware that they need to do it. A few months later, https is &#8220;<a title="(the second, business definition of course)" href="http://en.wikipedia.org/wiki/Table_stakes">table stakes</a>&#8221; for online services that handle personal data and it makes sense to activate it in new products by default. For example, your server <em>must</em> support https if you want to use <a href="https://developer.foursquare.com/docs/realtime.html">Foursquare&#8217;s new push APIs</a> or <a href="https://developers.facebook.com/blog/post/499/">display content on Facebook</a> after October 1st. Other services will surely follow suit.</p>
+<p>If like me you&#8217;ve never needed to activate https you might not know what&#8217;s involved or what to look for. I&#8217;m still learning, but I thought I&#8217;d share what I&#8217;ve found so far.</p>
+<p>To enable https you need to make sure your web server host supports it and you need an SSL certificate. SSL certificates are &#8220;just&#8221; text files of data that represent a chain of trust from a certificate authority through the certificate seller and down to you. The certificate authority&#8217;s credentials are installed in your browser to allow it to verify the certificates of websites you visit. Ideally there are identity checks at all stages of the certification process, though in practice it&#8217;s probably just an automated phone message and an email by the time it gets to you. Of course you need a credit card to pay for a certificate; those are table stakes too.</p>
+<h3>SSL on Heroku</h3>
+<p>We&#8217;re using <a href="http://heroku.com">Heroku</a> for our hosting and they support a few different options for SSL in their add-ons section. If you&#8217;re using a *.heroku.com or *.herokuapp.com domain for your app you can just activate &#8220;piggy-back&#8221; SSL for free and stop reading. I&#8217;m told by support that this will be activated by default for new apps and that it definitely supports the new herokuapp.com <em>Cedar</em> stack, which wasn&#8217;t clear from the add-on page.</p>
+<p>Otherwise, the differences between SSL options are fairly well explained on <a href="http://addons.heroku.com/ssl">the SSL add-on page</a> and from Heroku&#8217;s perspective it&#8217;s a matter of pushing you towards solutions that are most compatible with cloud hosting. Securing every subdomain is usually what you want, but in the cloud this means a dedicated IP address for your domain and you will be charged accordingly. We went with hostname SSL, which is a bit more convenient in the cloud but still requires a load balancer step, so Heroku currently charges $20/month for  this option. Hostname SSL enables us to secure a single subdomain like <tt>secure.example.com</tt>.</p>
+<p>Note: if you&#8217;re using Heroku their graphical tools are beautifully designed but <em>not</em> especially feature-complete, especially for SSL. It&#8217;s better to jump straight to the technical documentation and complete tasks on the command line. Their <a href="http://devcenter.heroku.com/articles/ssl">documentation for SSL support</a> is clear and up-to-date.</p>
+<h3>Choosing a Provider</h3>
+<p>After asking around we received a couple of recommendations for an SSL certificate. Most useful articles you&#8217;ll find with Google talk about using GoDaddy but we&#8217;re not big fans of their up-sell process or tools so we wanted to try another seller. <a href="http://gandi.net">Gandi.net</a> looked good but wouldn&#8217;t support our .io domain name, so we went with <a href="http://rapidssl.com">RapidSSL</a>.</p>
+<p>The main thing we were looking for was straight-talk and focus, which is why we chose RapidSSL. Our DNS provider also sells SSL certificates but their documentation seemed out of date and links to help documents were broken. But if you like one of your existing providers then of course check with them first.</p>
+<p>Note: RapidSSL is an entry-level reseller of certificates from <a href="http://www.geotrust.com/">GeoTrust</a>. If you&#8217;re not on a budget, or you want <em>Extended Validation</em> which will show your name in the address bar in modern browsers, then go directly to GeoTrust and pay a little bit more. We&#8217;re not conducting credit card transactions and our API traffic is largely behind the scenes, so we&#8217;re more interested in privacy and security than user experience at the moment.</p>
+<h3>Making a key and Certificate Signing Request</h3>
+<p>To acquire an SSL certificate you need to create a private key for your server and use it to create a Certificate Signing Request which you upload during the purchase process.</p>
+<p>Heroku uses Nginx to serve your pages (no matter which language you&#8217;re using to serve responses, Nginx sees the requests first and forwards them to your app). RapidSSL didn&#8217;t have instructions for creating a key/CSR for Nginx but the instructions for Apache worked fine. I used the <tt>openssl</tt> command in my Mac terminal, as follows:</p>
+<ol>
+<li>Generate a new key with<br />
+<blockquote><p><tt>openssl genrsa -des3 -out example.com.key 2048</tt></p></blockquote>
+</li>
+<li>Generate a CSR with<br />
+<blockquote><p><tt>openssl req -new -key example.com.key -out example.com.csr</tt></p></blockquote>
+<p> &#8211; note that <strong>Common Name</strong> will be the name of the subdomain you&#8217;re securing.</li>
+<li>Copy/paste the CSR into RapidSSL&#8217;s form as part of the purchase process</li>
+<li>Complete the phone confirmation step. I also needed to activate a new forwarding email address on our domain to handle the admin email, because our .io domain couldn&#8217;t provide the relevant admin contacts automatically.</li>
+<li>Await your certificates by email. This wasn&#8217;t as rapid as we&#8217;d hoped, it took about an hour.</li>
+<li>A web server usually requires an unlocked key, so do<br />
+<blockquote><p><tt>openssl rsa -in example.com.key -out example.com.unlocked.key</tt></p></blockquote>
+<p> to create that. With hindsight you could leave out the <tt>-des3</tt> in step one and skip this step.</li>
+<li>Save the keys you receive by email. For filenames we used <tt>example.com.crt</tt> for ours and <tt>intermediate.crt</tt> for the certificate authority&#8217;s certificate.</li>
+<li>Combine your key and the intermediate key using<br />
+<blockquote><p><tt>cat example.com.crt intermediate.crt &gt; example.com.pem</tt></p></blockquote>
+<p> (.pem and .crt seem to be used interchangeably, please let us know if this is incorrect).</li>
+<li>Upload the certificate and unlocked key to Heroku for your app:<br />
+<blockquote><p><tt>heroku ssl:add example.com.pem example.com.unlocked.key --app example-app</tt></p></blockquote>
+</li>
+<li>Activate Hostname SSL, and consent to being charged $20/month:<br />
+<blockquote><p><tt>heroku addons:add ssl:hostname --app example-app</tt></p></blockquote>
+</li>
+<li>Lastly, update the CNAME DNS record for your subdomain to point to the new hostname provided to you in an email from Heroku. This arrived as quickly as I could check my email.
+</ol>
+<p>That&#8217;s it! Phewf! A simple 11-step process. There&#8217;s a <a href="https://gist.github.com/1222498">full transcript</a> of this on github if you want to see what the responses look like, and once you have a certificate <a href="http://devcenter.heroku.com/articles/ssl#customdomain_ssl_wwwyourdomaincom">Heroku&#8217;s SSL docs</a> are excellent. Good luck!</p>
+<br />  <a rel="nofollow" href="http://feeds.wordpress.com/1.0/gocomments/bloomio.wordpress.com/248/"><img alt="" border="0" src="http://feeds.wordpress.com/1.0/comments/bloomio.wordpress.com/248/" /></a> <img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=blog.bloom.io&#038;blog=18914580&#038;post=248&#038;subd=bloomio&#038;ref=&#038;feed=1" width="1" height="1" />]]></content:encoded>
+			<wfw:commentRss>http://blog.bloom.io/2011/09/16/https-ssl-table-stakes/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	
+		<media:content url="http://2.gravatar.com/avatar/8eb29630732aecd29eb0d4de23023e12?s=96&#38;d=retro&#38;r=G" medium="image">
+			<media:title type="html">tomcarden</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>
